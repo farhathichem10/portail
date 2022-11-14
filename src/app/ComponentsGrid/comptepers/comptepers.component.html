@@ -1,0 +1,18 @@
+<div class="input-group mb-3">
+             
+    <input [(ngModel)]="x" type="text"  class="form-control" placeholder="bulletin" aria-label="bulletin" aria-describedby="basic-addon1">
+  </div>
+  <button type="submit" (click)="GetConge()" class="btn btn-primary">chercher</button>
+  
+  <ag-grid-angular 
+    style="width: 1300px; height: 500px;" 
+    class="ag-theme-balham"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [modules]="modules"
+
+
+    >
+</ag-grid-angular>

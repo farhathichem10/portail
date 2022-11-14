@@ -1,0 +1,242 @@
+<script src="assets/js/bsoin.js"></script>
+<script src="//code.jquery.com/jquery-3.6.1.min.js"></script>
+
+<app-menu></app-menu>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <div class="card">
+          <div class="card-body">
+            <div class="centopp">
+              <table style="border: none;">
+                <tr>
+                  <td>
+                    <h4 style="color: #001B85;">Consultation bulletin de soin</h4>
+                  </td>
+                 
+                </tr>
+              
+              </table>
+
+              <hr />
+
+              <!-- Button trigger modal -->
+
+              <!--button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+  </button>
+  
+  <Modal -->
+              <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">
+                        Consultation d'opposition
+                      </h1>
+                      <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <p style="">Matricule :</p>
+                        <input type="text" name="matricule" />
+                      </div>
+                      <br />
+                      <div class="form-group">
+                        <p style="">Prêt :</p>
+                        <input type="text" name="matricule" />
+                      </div>
+                      <button
+                        type="button"
+                        class="btn btn-outline-primary btnrecherche"
+                      >
+                        Recherche
+                      </button>
+                      <br />
+
+                    
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Fermer
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="cadre-table-scroll">
+                <table class="table table-borderless" style="width: 100%">
+                  <table class="table table-borderless" style="width: 100%">
+                    <tbody>
+                      <tr>
+                        <td style="text-align: center" scope="row">Adhérent</td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="inputPassword3"
+                            placeholder=""
+                            style="font-size: 12px"
+                            value={{list.npers}}
+                            required
+                          />
+                        </td>
+                        <td style="text-align: center" scope="row">
+                          Matricule pers
+                        </td>
+                        <td>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="inputPassword3"
+                            placeholder=""
+                            style="font-size: 12px"
+                            value={{list.mat_pers}}
+                          />
+                        </td>
+                        <td style="text-align: center" scope="row">
+                        </td>
+                        <td >
+                       
+                        
+                          <div class="form-group" >
+                            <select ngModel name="option" class="form-control" id="selectAction">
+                              <option>Aucun</option> 
+
+                              <option *ngFor="let op of array.numSoinParam">
+                                    {{ op}}
+                                </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </table>
+              </div>
+          
+              <div class="row">
+                <div class="panel panel-primary filterable full-color-azure">
+                    <div class="panel-heading">
+                        <div class="pull-right">
+                            <button class="btn btn-default btn-xs btn-filter" style="background-color: #28a745;"><span class="glyphicon glyphicon-filter"></span> Filter</button>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                      <thead>
+                    
+                          <tr class="filters " style="    background: radial-gradient(ellipse at center, #2d9de7 0%, #36AFEC 100%);">
+                            <th><input type="text" class="form-control" disabled>N</th>
+                            <th><input type="text" class="form-control" disabled>Date Acte</th>
+                            <th><input type="text" class="form-control" disabled>Acte</th>
+                            <th><input type="text" class="form-control" disabled>Libellé Acte</th>
+                            <th><input type="text" class="form-control" disabled>Pce</th>
+                            <th><input type="text" class="form-control" disabled>Vge</th>
+                            <th><input type="text" class="form-control" disabled>Ind</th>
+                            <th><input type="text" class="form-control" disabled>Montant Acte</th>
+                            <th><input type="text" class="form-control" disabled>Montant Rremb</th>
+                            <th><input type="text" class="form-control" disabled>Etab</th>
+                            <th><input type="text" class="form-control" disabled>Libellé etab</th>
+                            <th><input type="text" class="form-control" disabled>remb cong</th>
+                            <th><input type="text" class="form-control" disabled>
+                              Observation
+                            </th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        <tr   *ngFor="let item of list.ligBult">
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.num_lig}} </p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="fw-normal mb-1">{{item.dat_soins}}</p>
+                          </td>
+                         
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.abrv_act}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.libcact}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.num_lig}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.nbr_vign}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <p class="fw-normal mb-1">{{item.indice}}</p>
+                          </td>
+                          <td>
+                            <span class="fw-normal mb-1"
+                              >{{item.libBult}}</span
+                            >
+                          </td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="ms-3">
+                                <p class="">{{item.tot_remb_comp}}</p>
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{item.cod_etablis}}</td>
+                          <td>
+                            <p class="fw-normal mb-1">{{item.liborg}}</p>
+                          </td>
+                          <td>
+                            <span class="fw-normal mb-1"
+                              >{{item.cod_etablis}}</span
+                            >
+                          </td>
+                          <td>{{item.observ}}</td>
+                        </tr>
+                     
+                      </tbody>
+                  </table>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

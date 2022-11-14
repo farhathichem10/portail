@@ -1,0 +1,944 @@
+<div class="container-fluid">
+  <app-menu></app-menu>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <div class="card">
+          <div class="card-body">
+            <h4 style="color: #001b85">Espace des demandes</h4>
+            <hr />
+            <div class="list-group">
+              <!-- <a  href="#" class="list-group-item list-group-item-action" (click)="printerReport()">downlod</a> -->
+            </div>
+            <table style="border: none" style="width: 100%">
+              <tr>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                      [(ngModel)]="x" value="1" />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Demande prêt & avances
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" value="2" name="flexRadioDefault" [(ngModel)]="x"
+                      id="flexRadioDefault2" />
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Autorisation
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" value="3" name="flexRadioDefault" [(ngModel)]="x"
+                      id="flexRadioDefault3" />
+                    <label class="form-check-label" for="flexRadioDefault3">
+                      Formation
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" value="4" name="flexRadioDefault" [(ngModel)]="x"
+                      id="flexRadioDefault4" />
+                    <label class="form-check-label" for="flexRadioDefault4">
+                      Congé
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" value="5" name="flexRadioDefault" [(ngModel)]="x"
+                      id="flexRadioDefault5" />
+                    <label class="form-check-label" for="flexRadioDefault5">
+                      Situation
+                    </label>
+                  </div>
+                </td>
+                <td>
+                  <div class="form-check" col-sm>
+                    <input class="form-check-input" type="radio" value="6" name="flexRadioDefault" [(ngModel)]="x"
+                      id="flexRadioDefault6" />
+                    <label class="form-check-label" for="flexRadioDefault6">
+                      Document administratif
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <hr />
+        <div *ngIf="x== '1'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande prêt & avances</h4>
+                    <hr>
+
+                    <form [formGroup]="formPretAvance">
+                      <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Date demande</label>
+                        <div class="col-sm-2">
+                          <input type="text" class="form-control" id="inputEmail3" placeholder="Date demande"
+                            style="font-size: 12px;" formControlName="dateDemande" readonly />
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Groupe prêt</label>
+                        <div class="col-sm-2">
+                          <select class="form-select" aria-label="Default select example" (change)="onSelect1($event)"
+                            formControlName="codGrpPret">
+                            <option *ngFor="let i of listGroupe" value="{{i.cod_grp_pret}}"> {{i.lib_grp_pret}}</option>
+                          </select>
+                          <br>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-2 col-form-label">Type prêt</label>
+                        <div class="col-sm-2">
+                          <select class="form-select" aria-label="Default select example" formControlName="typPret">
+                            <option *ngFor="let i of listTypePret" value="{{i.typ_pret}}"> {{i.lib_pret}}</option>
+                          </select>
+                        </div>
+                        <br>
+                        <div class="form-group row">
+                          <label for="inputEmail3" class="col-sm-2 col-form-label">Mantant</label>
+                          <div class="col-sm-2">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="Mantant demande"
+                              style="font-size: 12px;" formControlName="mntDem" />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputEmail3" class="col-sm-2 col-form-label">Observation</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputEmail3" placeholder="Observation"
+                              style="font-size: 12px;" />
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse</label>
+                          <div class="col-sm-1">
+                            <select class="form-select" aria-label="Default select example" formControlName="reponse">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="text-center">
+                          <input class="form-control" type="file" (change)="onChange($event)">
+
+                        </div>
+
+                        <br><br>
+                        <div>
+                          <button (click)="DemandePretAvance()" class="btn btn-success" style="float: right;">
+                            Upload
+                          </button>
+                        </div>
+                        <div class="col-sm-3">
+                          <!-- Shareable short link of  uploaded file -->
+                          <div class="container text-center jumbotron" *ngIf="shortLink">
+                            <h2> Visit Here</h2>
+                            <a href="{{shortLink}}">{{shortLink}}</a>
+                          </div>
+                        </div>
+
+                        <!--Flag variable is used here-->
+
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-10">
+
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+
+                    <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column;"
+                      class="ag-theme-balham" [rowData]="Listavance" [columnDefs]="columnAvance"
+                      [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules" [domLayout]="domLayout">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+
+        </div>
+
+        <div *ngIf="x == '2'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande autorisation</h4>
+                    <hr>
+                    <form [formGroup]="formAutorisation">
+                      <div class="form-group row">
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date demande</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Date demande" style="font-size: 12px;"
+                              formControlName="dateDemande" readonly />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Type autorisation</label>
+                          <div class="col-sm-3">
+                            <div class="col-sm-2">
+                              <select class="form-select" aria-label="Default select example" formControlName="codAut">
+                                <option *ngFor="let i of listTypeAutorisation" value="{{i.cod_typ_aut}}">
+                                  {{i.lib_typ_aut}}</option>
+                              </select>
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Heure sortie</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Heure sortie"
+                              style="font-size: 12px;" formControlName="heurS" />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Minute sortie</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Minute sortie"
+                              style="font-size: 12px;" formControlName="minS" />
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Heure retour</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Heure retour" style="font-size: 12px;"
+                              formControlName="heurR" />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Minute retour</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Minute retour"
+                              style="font-size: 12px;" formControlName="minR" />
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Motif</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Motif"
+                              style="font-size: 12px;" formControlName="txtDem" />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse Rh</label>
+                          <div class="col-sm-1">
+                            <select class="form-select" aria-label="Default select example" formControlName="reponse">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse chef</label>
+                          <div class="col-sm-1">
+                            <select class="form-select" aria-label="Default select example"
+                              formControlName="reponseChef">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Observation chef</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Observation chef"
+                              style="font-size: 12px;" formControlName="txtChef" />
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+
+
+                          <div class="text-center">
+                            <input class="form-control" type="file" (change)="onChange($event)">
+
+                          </div>
+                          <br><br>
+                          <div>
+                            <button (click)="DemandeAutorisation()" class="btn btn-success" style="float: right;">
+                              Upload
+                            </button>
+                          </div>
+                          <!-- Shareable short link of  uploaded file -->
+                          <div class="container text-center jumbotron" *ngIf="shortLink">
+                            <h2> Visit Here</h2>
+                            <a href="{{shortLink}}">{{shortLink}}</a>
+                          </div>
+
+                          <!--Flag variable is used here-->
+
+
+
+
+                        </div>
+
+
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+
+                    <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column;"
+                      class="ag-theme-balham" [rowData]="ListAutorisation" [columnDefs]="columnAutorisation"
+                      [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules" [domLayout]="domLayout">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+        </div>
+        <div *ngIf="x == '3'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande formation</h4>
+                    <hr>
+                    <form [formGroup]="formFormation">
+                      <div class="form-group row">
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date demande</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Date demande" style="font-size: 12px;"
+                              formControlName="dateDemande" readonly />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Année</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Année"
+                              style="font-size: 12px;" formControlName="annee" />
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Titre de formation</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example" (change)="onSelect($event)"
+                              formControlName="codTit">
+                              <option *ngFor="let i of titreFormation" value="{{i.cod_tit}}"> {{i.lib_tit}}</option>
+                            </select>
+                            <br>
+                          </div>
+
+
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Domaine de formation</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="codTyp">
+                              <option *ngFor="let i of typeFormation" value="{{i.cod_typ}}"> {{i.lib_typ}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Théme</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="codTheme">
+                              <option *ngFor="let i of themeFormations" value="{{i.codTheme}}"> {{i.libTheme}}</option>
+                            </select>
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date début</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Date début"
+                              style="font-size: 12px;" formControlName="datDebut" />
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date fin</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Date fin"
+                              style="font-size: 12px;" formControlName="datFin" />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <!-- <label
+                                    for="inputPassword3"
+                                    class="col-sm-2 col-form-label"
+                                    >Obsérvation</label
+                                  >
+                                  <div class="col-sm-3">
+                                    <input
+                                      type="text"
+                                      class="form-control"
+                                      id="inputPassword3"
+                                      placeholder="Obsérvation"
+                                      style="font-size: 12px;"
+                                    />
+                                  </div> -->
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse</label>
+                          <div class="col-sm-1">
+                            <select class="form-select" aria-label="Default select example" formControlName="reponse">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse chef</label>
+                          <div class="col-sm-1">
+
+                            <select class="form-select" aria-label="Default select example"
+                              formControlName="reponseChef">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Observation chef</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" placeholder="Observation chef"
+                              style="font-size: 12px;" formControlName="txtChef" />
+                          </div>
+
+                          <div class="text-center">
+                            <input class="form-control" type="file" (change)="onChange($event)">
+
+                          </div>
+                          <br><br>
+                          <div>
+                            <button (click)="DemandeFormation()" class="btn btn-success" style="float: right;">
+                              Upload
+                            </button>
+                          </div>
+                          <!-- Shareable short link of  uploaded file -->
+                          <div class="container text-center jumbotron" *ngIf="shortLink">
+                            <h2> Visit Here</h2>
+                            <a href="{{shortLink}}">{{shortLink}}</a>
+                          </div>
+
+                          <!--Flag variable is used here-->
+
+
+
+
+                        </div>
+
+
+
+                      </div>
+                      {{formFormation.value|json}}
+
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column;"
+                      class="ag-theme-balham" [rowData]="listFormation" [columnDefs]="columnFormaton"
+                      [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules" [domLayout]="domLayout">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+          <div [ngSwitch]="tab">
+            <br />
+
+            <div *ngSwitchCase="6">
+              <div class="card">
+                <div class="card-body">
+                  <h6 style="color: #001b85">Edition Bulletin De Paie</h6>
+                  <button type="button" class="btn btn-labeled btn-danger" style="float: right" printTitle="Print Title"
+                    printSectionId="print-section" ngxPrint>
+                    <span class="btn-label"><i class="fa fa-print"> </i></span>
+                    Imprimer
+                  </button>
+                  <hr />
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="x == '4'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande congé</h4>
+                    <hr>
+                    <form [formGroup]="formConge">
+                      <div class="form-group row">
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date demande</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Date demande" style="font-size: 12px;"
+                              formControlName="dateDemande" readonly />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date début</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="jj/MM/yyyy"
+                              style="font-size: 12px;" formControlName="datDebut" />
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date fin</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="jj/MM/yyyy"
+                              style="font-size: 12px;" formControlName="datFin" />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Unité de congé</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="cngTemps">
+                              <option> </option>
+
+                              <option value="J"> Jour Complet</option>
+                              <option value="D"> Demi-journée</option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Séance début</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example"
+                              formControlName="cngTempsDebut">
+                              <option> </option>
+
+                              <option value="M"> Matin</option>
+                              <option value="S"> Aprés-midi</option>
+
+                            </select>
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Séance fin</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example"
+                              formControlName="cngTempsFin">
+                              <option> </option>
+
+                              <option value="M"> Matin</option>
+                              <option value="S"> Aprés-midi</option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Motif</label>
+                          <div class="col-sm-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="codM">
+                              <option *ngFor="let i of listMotifCng" value="{{i.cod_m}}"> {{i.lib_mot}}</option>
+                            </select>
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse Rh</label>
+                          <div class="col-sm-1">
+
+                            <select class="form-select" aria-label="Default select example" formControlName="reponse">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse chef</label>
+                          <div class="col-sm-1">
+
+                            <select class="form-select" aria-label="Default select example"
+                              formControlName="reponseChef">
+                              <option selected>Réponse</option>
+                              <option value="O">O</option>
+                              <option value="N">N</option>
+
+                            </select>
+                          </div>
+                        </div>
+                        <br /><br />
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Observation chef</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" placeholder="Observation chef"
+                              style="font-size: 12px;" formControlName="txtChef" />
+                          </div>
+
+                          <div class="text-center">
+                            <input class="form-control" type="file" (change)="onChange($event)"  style="width: 50%;">
+                            <div class="container text-center jumbotron" *ngIf="shortLink">
+                              <h2> Visit Here</h2>
+                              <a href="{{shortLink}}">{{shortLink}}</a>
+                            </div>
+
+                          </div>
+                          <br><br>
+                          <div>
+                            <button (click)="DemandeConge()" class="btn btn-success" style="float: right;">
+                              Upload
+                            </button>
+                          </div>
+                          <!-- Shareable short link of  uploaded file -->
+
+
+                          <!--Flag variable is used here-->
+
+
+
+
+                        </div>
+
+
+                      </div>
+                    </form>
+                  </div>
+
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column;"
+                      class="ag-theme-balham" [rowData]="ListConge" [columnDefs]="columnConge"
+                      [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules" [domLayout]="domLayout">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+        </div>
+        <div *ngIf="x == '5'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande situation</h4>
+                    <hr>
+                    <form [formGroup]="dataForm">
+                      <div class="row">
+                        <div class="card">
+                          <div class="card-body">
+                            <div class="form-group row">
+                              <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Date demande</label>
+                                <div class="col-sm-3">
+                                  <input type="text" class="form-control" placeholder="Date demande"
+                                    formControlName="dateDemande" readonly />
+                                </div>
+
+                                &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Objet de changement</label>
+                                <div class="col-sm-3">
+                                  <input type="text" class="form-control" id="inputPassword3"
+                                    placeholder="bjet de changement" formControlName="txtDem" />
+                                </div>
+                              </div>
+                              <br /><br />
+
+                              <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 col-form-label">Réponse</label>
+                                <div class="col-sm-3">
+                                  <select class="form-select" aria-label="Default select example">
+                                    <option selected>Réponse</option>
+                                    <option value="O">O</option>
+                                    <option value="N">N</option>
+
+                                  </select>
+                                </div>
+
+
+
+                                <div class="text-center" class="col-sm-3">
+                                  <input class="form-control" type="file" (change)="onChange($event)"  style="width: 50%;">
+                                  <div class="container text-center jumbotron" *ngIf="shortLink">
+                                    <h2> Visit Here</h2>
+                                    <a href="{{shortLink}}">{{shortLink}}</a>
+                                  </div>
+                                </div>
+                                <br><br>
+                                <div>
+                                  <button (click)="onUpload()" class="btn btn-success" style="float: right;">
+                                    Upload
+                                  </button>
+                                </div>
+                                <!-- Shareable short link of  uploaded file -->
+
+
+                                <!--Flag variable is used here-->
+
+
+
+                              </div>
+
+
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card">
+                          <div class="card-body">
+
+                            <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column;"
+                              class="ag-theme-balham" [rowData]="rowData" [columnDefs]="columnDefs"
+                              [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules"
+                              [domLayout]="domLayout">
+                            </ag-grid-angular>
+                          </div>
+                        </div>
+
+                      </div>
+                      {{dataForm.value|json}}
+                    </form>
+
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+
+
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+        </div>
+        <div *ngIf="x == '6'">
+          <ul class="nav nav-tabs">
+            <div class="container-fluid" style="border: 1px">
+
+
+              <div class="row">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 style="color: #001b85">Demande documents administratifs</h4>
+                    <hr>
+                    <form [formGroup]="formDocument">
+                      <div class="form-group row">
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Date demande</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" placeholder="Date demande" style="font-size: 12px;"
+                              formControlName="dateDemande" readonly />
+                          </div>
+
+                          &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                          &nbsp;&nbsp;&nbsp;&nbsp;
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Attestation</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Attestation"
+                              style="font-size: 12px;" formControlName="numAttest" />
+                          </div>
+                        </div>
+                        <br /><br />
+
+                        <div class="form-group row">
+                          <label for="inputPassword3" class="col-sm-2 col-form-label">Observation</label>
+                          <div class="col-sm-5">
+                            <input type="text" class="form-control" id="inputPassword3" placeholder="Observation"
+                              style="font-size: 12px;" formControlName="txtChef" />
+                          </div>
+
+
+                          <div>
+
+                            <table style="border:none;">
+                              <tr>
+                                <td>
+                                  Réponse Rh
+                                </td>
+                                &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <td>
+                                  <select class="form-select" aria-label="Default select example"
+                                    formControlName="reponse">
+                                    <option selected>Réponse</option>
+                                    <option value="O">O</option>
+                                    <option value="N">N</option>
+
+                                  </select>
+
+                                </td>
+                              </tr>
+
+
+                            </table>
+                          </div>
+                          <br><br>
+
+                          <div class="text-center">
+                            <input class="form-control" type="file" (change)="onChange($event)" style="width: 50%;">
+
+
+                          </div>
+                          <br><br>
+                          <div>
+                            <button (click)="DemandeDocument()" class="btn btn-success" style="float: right;">
+                              Upload
+                            </button>
+                          </div>
+                          <!-- Shareable short link of  uploaded file -->
+                          <div class="container text-center jumbotron" *ngIf="shortLink">
+                            <h2> Visit Here</h2>
+                            <a href="{{shortLink}}">{{shortLink}}</a>
+                          </div>
+
+                          <!--Flag variable is used here-->
+
+
+
+
+
+                        </div>
+
+
+
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+
+                    <ag-grid-angular style="height: 1000px; display: flex; flex-direction: column; "
+                      class="ag-theme-balham" [rowData]="ListDocument" [columnDefs]="columnDocument"
+                      [defaultColDef]="defaultColDef" [pagination]="true" [modules]="modules" [domLayout]="domLayout">
+                    </ag-grid-angular>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
